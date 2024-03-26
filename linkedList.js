@@ -14,25 +14,38 @@ class LinkedList {
   }
   // add element to end of list :
   append(value) {
-    if (this.head == null) {
+    if (this.head === null) {
       this.head = new Node(value);
     } else {
       let currentNode = this.head;
-      while (currentNode.next != null) {
+      while (currentNode.next !== null) {
         currentNode = currentNode.next;
       }
       currentNode.next = new Node(value);
     }
-    length++;
+    this.length++;
   }
   // add element to start of list :
   prepend(value) {
     this.head = new Node(value, this.head);
-    length++;
+    this.length++;
   }
   // return size of list :
   size() {
-    return `list size : ${length}`;
+    return `list size : ${this.length}`;
+  }
+  // return first element in list :
+  headFunc() {
+    return this.head;
+  }
+  // return last element in list :
+  tailFunc() {
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
+      if (currentNode.next == null) return currentNode;
+    }
+    return currentNode;
   }
 }
 
@@ -41,7 +54,8 @@ list.append("a");
 list.append("b");
 list.prepend("second");
 list.prepend("first");
-console.log(list.size());
-console.log(list);
-console.log(list.head);
-console.log(list.head.next);
+
+console.log("list: ", list);
+// console.log(list.size());
+// console.log(list.headFunc());
+// console.log(list.tailFunc());
