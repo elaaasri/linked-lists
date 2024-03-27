@@ -1,51 +1,62 @@
-// creates a node that has an element and a pointer :
+// creates a node that has an element and a pointer :*
 class Node {
-  constructor(value = null, next = null) {
-    this.value = value;
-    this.next = next;
+  static index = 0;
+  constructor(value, next) {
+    this.value = value || null;
+    this.next = next || null;
+    this.index = Node.index++;
   }
 }
 // link list class :
 class LinkedList {
   // tracks the size of list :
-  length = 0;
-  constructor(head = null) {
-    this.head = head;
+  size = 0;
+  constructor(head) {
+    this.head = head || null;
   }
-  // add element to end of list :
+  // add a node to end of list :
   append(value) {
     if (this.head === null) {
-      this.head = new Node(value);
+      this.head = new Node(value, null);
     } else {
       let currentNode = this.head;
       while (currentNode.next !== null) {
         currentNode = currentNode.next;
       }
-      currentNode.next = new Node(value);
+      currentNode.next = new Node(value, null);
     }
-    this.length++;
+    this.size++;
   }
-  // add element to start of list :
+  // add a node to start of list :
   prepend(value) {
     this.head = new Node(value, this.head);
-    this.length++;
+    this.size++;
   }
   // return size of list :
-  size() {
-    return `list size : ${this.length}`;
+  getSize() {
+    return `list size : ${this.size}`;
   }
-  // return first element in list :
-  headFunc() {
+  // returns the first node in the list :
+  getHead() {
     return this.head;
   }
-  // return last element in list :
-  tailFunc() {
+  // returns the last node in the list :
+  getTail() {
     let currentNode = this.head;
-    while (currentNode.next !== null) {
+    // travel to the last element :
+    while (currentNode !== null) {
+      if (currentNode.next === null) return currentNode;
       currentNode = currentNode.next;
-      if (currentNode.next == null) return currentNode;
     }
-    return currentNode;
+  }
+  // returns the node at the given index :
+  at(index) {
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      if (currentNode.index === index) return currentNode;
+      currentNode = currentNode.next;
+    }
+    return "no element found!";
   }
 }
 
@@ -56,6 +67,7 @@ list.prepend("second");
 list.prepend("first");
 
 console.log("list: ", list);
-// console.log(list.size());
-// console.log(list.headFunc());
-// console.log(list.tailFunc());
+console.log(list.getSize());
+console.log(list.getHead());
+console.log(list.getTail());
+console.log(list.at(0));
