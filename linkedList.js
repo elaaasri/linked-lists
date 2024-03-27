@@ -19,11 +19,12 @@ class LinkedList {
     if (this.head === null) {
       this.head = new Node(value, null);
     } else {
-      let currentNode = this.head;
-      while (currentNode.next !== null) {
-        currentNode = currentNode.next;
+      let currNode = this.head;
+      // travel to the last node :
+      while (currNode.next !== null) {
+        currNode = currNode.next;
       }
-      currentNode.next = new Node(value, null);
+      currNode.next = new Node(value, null);
     }
     this.size++;
   }
@@ -38,36 +39,54 @@ class LinkedList {
   }
   // returns the first node in the list :
   getHead() {
-    return this.head;
+    if (this.head == null) return "no head found!";
+    else return this.head;
   }
   // returns the last node in the list :
   getTail() {
-    let currentNode = this.head;
-    // travel to the last element :
-    while (currentNode !== null) {
-      if (currentNode.next === null) return currentNode;
-      currentNode = currentNode.next;
+    let currNode = this.head;
+    // travel to the last node :
+    while (currNode !== null) {
+      if (currNode.next === null) return currNode;
+      currNode = currNode.next;
     }
+    return "no tail found!";
   }
   // returns the node at the given index :
   at(index) {
-    let currentNode = this.head;
-    while (currentNode !== null) {
-      if (currentNode.index === index) return currentNode;
-      currentNode = currentNode.next;
+    let currNode = this.head;
+    while (currNode !== null) {
+      if (currNode.index === index) return currNode;
+      currNode = currNode.next;
     }
-    return "no element found!";
+    return "no node found!";
+  }
+  // removes the last node from the list :
+  pop() {
+    let prevNode;
+    let currNode = this.head;
+    while (currNode.next != null) {
+      // stores the node before the last node :
+      prevNode = currNode;
+      currNode = currNode.next;
+    }
+    // points prev node to null :
+    if (prevNode === undefined) this.head = null;
+    else prevNode.next = null;
+    this.size--;
   }
 }
-
+// creates an instance :
 const list = new LinkedList();
+// append and prepend some nodes :
 list.append("a");
 list.append("b");
 list.prepend("second");
 list.prepend("first");
-
-console.log("list: ", list);
+// linked list methods :
+console.log("full list:", list);
 console.log(list.getSize());
 console.log(list.getHead());
 console.log(list.getTail());
 console.log(list.at(0));
+console.log(list.pop(), "checks list after popping last node:", list);
