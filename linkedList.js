@@ -95,7 +95,18 @@ class LinkedList {
     }
     return null;
   }
+  // returns list as the format ( value ) -> ( value ) -> ( value ) -> null :
+  toString() {
+    let currNode = this.head;
+    let result = "";
+    while (currNode != null) {
+      result += `(${currNode.value}) -> `;
+      currNode = currNode.next;
+    }
+    return result + currNode;
+  }
 }
+
 // creates an instance :
 const list = new LinkedList();
 // append and prepend some nodes :
@@ -105,10 +116,11 @@ list.prepend("second");
 list.prepend("first");
 // linked list methods :
 console.log("full list:", list);
-console.log(list.getSize());
-console.log(list.getHead());
-console.log(list.getTail());
 console.log(list.at(0));
 console.log(list.pop(), "checks list after popping last node:", list);
 console.log(list.contains("a"));
 console.log(list.find("a"));
+console.log(list.getSize());
+console.log(list.getHead());
+console.log(list.getTail());
+console.log(list.toString());
