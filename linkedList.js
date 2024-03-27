@@ -63,6 +63,7 @@ class LinkedList {
   }
   // removes the last node from the list :
   pop() {
+    if (this.head == null) return; // if there's no nodes return
     let prevNode;
     let currNode = this.head;
     while (currNode.next != null) {
@@ -71,9 +72,28 @@ class LinkedList {
       currNode = currNode.next;
     }
     // points prev node to null :
-    if (prevNode === undefined) this.head = null;
+    if (prevNode == undefined)
+      this.head = null; // if there's one node points head to null
     else prevNode.next = null;
     this.size--;
+  }
+  // checks if the given value is in the list :
+  contains(value) {
+    let currNode = this.head;
+    while (currNode != null) {
+      if (currNode.value === value) return true;
+      currNode = currNode.next;
+    }
+    return false;
+  }
+  // returns the index of given value :
+  find(value) {
+    let currNode = this.head;
+    while (currNode != null) {
+      if (currNode.value === value) return currNode.index;
+      currNode = currNode.next;
+    }
+    return null;
   }
 }
 // creates an instance :
@@ -90,3 +110,5 @@ console.log(list.getHead());
 console.log(list.getTail());
 console.log(list.at(0));
 console.log(list.pop(), "checks list after popping last node:", list);
+console.log(list.contains("a"));
+console.log(list.find("a"));
